@@ -1,17 +1,13 @@
 def tailrecursive(f):
-    call = True
     recurring = False
     def wrapper(*args):
-        nonlocal call, recurring
+        nonlocal recurring
         if recurring:
             recurring = False
-            call = True
             return args
-        while call:
-            call = False
+        while not recurring:
             recurring = True
             args = f(*args)
-        call = True
         recurring = False
         return args
     return wrapper
